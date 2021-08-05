@@ -1,4 +1,4 @@
-import {Router} from 'express';
+import { Router } from 'express';
 import startGame from '../controllers/start';
 import playerMove from '../controllers/move';
 import gameStatus from '../controllers/status';

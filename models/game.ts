@@ -1,6 +1,6 @@
-import {model, Schema, Types} from 'mongoose';
+import { model, Schema, Types, Document } from 'mongoose';
 
-const GameSchema = new Schema({
+const GameSchema = new Schema<Game>({
 	code: String,
 	playerA: {
 		identifier: Types.ObjectId,
@@ -14,11 +14,11 @@ const GameSchema = new Schema({
 	},
 	xSign: {
 		type: String,
-		enum: ['A', 'B']
+		enum: ['A', 'B', null]
 	},
 	currentTurn: {
 		type: String,
-		enum: ['A', 'B']
+		enum: ['A', 'B', null]
 	},
 	board: [
 		[{
@@ -28,6 +28,14 @@ const GameSchema = new Schema({
 	]
 });
 
-const Game = model('Game', GameSchema);
+interface Game extends Document {
+	code: any;
+	playerA: any;
+	playerB: any;
+	xSign: any;
+	currentTurn: any;
+	board: any;
+}
+const Game = model<Game>('Game', GameSchema);
 
 export default Game;
