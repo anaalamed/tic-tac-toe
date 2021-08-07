@@ -1,9 +1,7 @@
 import Game from '../models/game';
 
-
 export default async function playerMove(req, res) {
 	const { playerId, move, code } = req.body;
-
 	console.log(move);
 	const game = await Game.findOne({ code });
 
@@ -22,7 +20,10 @@ export default async function playerMove(req, res) {
 	// turn ? move
 	if (game.currentTurn === player) {
 		console.log('turn');
-		game.board[move[0]][move[1]] = sign;
+		if (game.board[move[0]][move[1]] === '') {
+			const object = { ['board.' + move[0] + '.' + move[1]]: sign };
+			await game.updateOne({ $set: object });
+		}
 	};
 
 	// change turn 
@@ -33,5 +34,6 @@ export default async function playerMove(req, res) {
 	}
 
 	await game.save();
+	console.table(game.board);
 	res.json(game);
 }

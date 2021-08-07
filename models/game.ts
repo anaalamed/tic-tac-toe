@@ -25,7 +25,7 @@ const GameSchema = new Schema<Game>({
 			type: String,
 			enum: ['x', 'o', '']
 		}]
-	]
+	],
 });
 
 interface Game extends Document {

@@ -27,6 +27,11 @@ async function getNewGameForPlayerB(playerName, code) {
 	var game = await getGameByCode(code);
 	console.log('1', game);
 
+	// if (game.playerB) {
+	// 	throw new Error('this game is already full');
+	// };
+
+	// game.code = null;
 	game.xSign = null;
 	game.playerB = {
 		identifier: Types.ObjectId(),
@@ -36,9 +41,6 @@ async function getNewGameForPlayerB(playerName, code) {
 	game.currentTurn = null;
 	game.board = [['', '', ''], ['', '', ''], ['', '', '']];
 
-	// if (game.playerB) {
-	// 	throw new Error('this game is already full');
-	// };
 	await game.save();
 	return game;
 }
