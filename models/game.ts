@@ -1,7 +1,8 @@
-import { model, Schema, Types, Document } from 'mongoose';
+import { model, Schema, Types, Document, isValidObjectId } from 'mongoose';
 
 const GameSchema = new Schema<Game>({
 	code: String,
+	// _id: Types.ObjectId,
 	playerA: {
 		identifier: Types.ObjectId,
 		name: String,

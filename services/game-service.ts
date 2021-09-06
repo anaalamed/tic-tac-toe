@@ -10,6 +10,7 @@ export function createGameFromPlayer(playerName): Promise<any> {
 	// return game object
 
 	const game = new Game({
+		_id: Types.ObjectId(),
 		code: getRandomCode(),
 		playerA: {
 			identifier: Types.ObjectId(),

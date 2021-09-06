@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import './game';
 
 export default function connect(mongoUri) {
+	// console.log(mongoUri);
 	mongoose.connect(mongoUri, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,

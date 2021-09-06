@@ -5,9 +5,10 @@ import { getGameByCode } from '../services/game-service';
 export default async function startGame(req, res) {
 	const { playerName, code } = req.body || {};
 	const identifier = (req.headers.user);
+	console.log(playerName, code);
 
 	if (identifier) {
-		const game = await getNewGameForPlayerA(JSON.parse(identifier));
+		const game = await getNewGameForPlayerA(identifier);
 		res.json(game);
 	}
 	else if (playerName && code) {
@@ -20,26 +21,29 @@ export default async function startGame(req, res) {
 
 async function getNewGameForPlayerA(identifier) {
 	const game = await Game.findOne({ "playerA.identifier": identifier });
+	game.board = [['', '', ''], ['', '', ''], ['', '', '']];
+	await game.save();
 	return game;
 }
 
 async function getNewGameForPlayerB(playerName, code) {
 	var game = await getGameByCode(code);
-	console.log('1', game);
+	// console.log('1', game);
 
 	// if (game.playerB) {
 	// 	throw new Error('this game is already full');
 	// };
 
 	// game.code = null;
-	game.xSign = null;
+	const rand = Math.round(Math.random());
+	game.xSign = rand ? "A" : "B";
 	game.playerB = {
 		identifier: Types.ObjectId(),
 		name: playerName,
 		wins: 0
 	};
-	game.currentTurn = null;
-	game.board = [['', '', ''], ['', '', ''], ['', '', '']];
+	game.currentTurn = rand ? "A" : "B";
+	// game.board = [['', '', ''], ['', '', ''], ['', '', '']];
 
 	await game.save();
 	return game;

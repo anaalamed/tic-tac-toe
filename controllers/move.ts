@@ -1,3 +1,4 @@
+import { models } from 'mongoose';
 import Game from '../models/game';
 
 export default async function playerMove(req, res) {
@@ -22,7 +23,9 @@ export default async function playerMove(req, res) {
 		console.log('turn');
 		if (game.board[move[0]][move[1]] === '') {
 			const object = { ['board.' + move[0] + '.' + move[1]]: sign };
-			await game.updateOne({ $set: object });
+			// await game.updateOne({ $set: object }, { upsert: true });
+			await Game.findOneAndUpdate({ code }, { $set: object }, { new: true });
+			console.log('move');
 		}
 	};
 

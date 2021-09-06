@@ -11,8 +11,10 @@ const gameRouter = Router();
 gameRouter.post('/api/game/code', createGameCode);
 gameRouter.post('/api/game/start', startGame);
 gameRouter.put('/api/game/move', playerMove);
-gameRouter.get('/api/game', gameStatus);
+// gameRouter.get('/api/game/status', gameStatus);
+gameRouter.get('/api/game/:id/status', gameStatus);
 gameRouter.get('/api/game/:id', getGame);
+
 
 
 export default gameRouter;
